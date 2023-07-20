@@ -12,6 +12,7 @@ import { MapsScreen } from "./src/features/maps/screens/maps.screen";
 import { RestaurantsScreen } from "./src/features/restaurants/screens/restaurants.screen";
 import { SettingsScreen } from "./src/features/settings/screens/settings.screen";
 import { theme } from "./src/infrastructure/theme";
+import { RestaurantsContextProvider } from "./src/services/restaurants/restaurants.context";
 
 function RestaurantsScreenNav() {
 	return <RestaurantsScreen />;
@@ -56,19 +57,21 @@ export default function App() {
 	return (
 		<>
 			<ThemeProvider theme={theme}>
-				<NavigationContainer>
-					<Tab.Navigator screenOptions={createScreenOptions}>
-						<Tab.Screen
-							name="Restaurants"
-							component={RestaurantsScreenNav}
-						/>
-						<Tab.Screen
-							name="Settings"
-							component={SettingsScreenNav}
-						/>
-						<Tab.Screen name="Maps" component={MapsScreenNav} />
-					</Tab.Navigator>
-				</NavigationContainer>
+				<RestaurantsContextProvider>
+					<NavigationContainer>
+						<Tab.Navigator screenOptions={createScreenOptions}>
+							<Tab.Screen
+								name="Restaurants"
+								component={RestaurantsScreenNav}
+							/>
+							<Tab.Screen
+								name="Settings"
+								component={SettingsScreenNav}
+							/>
+							<Tab.Screen name="Maps" component={MapsScreenNav} />
+						</Tab.Navigator>
+					</NavigationContainer>
+				</RestaurantsContextProvider>
 			</ThemeProvider>
 			<ExpoStatusBar style="auto" />
 		</>
